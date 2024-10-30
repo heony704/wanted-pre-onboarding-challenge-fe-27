@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { signup } from "../api/auth";
 
 import Form from "../components/Form";
+import Button from "../components/Button";
 
 interface FormData {
   email: string;
@@ -61,13 +62,9 @@ const SignUp = () => {
         />
         <Form.ErrorMessage>{errors.password?.message}</Form.ErrorMessage>
       </Form.Item>
-      <button
-        className="flex h-12 flex-shrink-0 cursor-pointer items-center justify-center rounded-lg bg-primary px-5 text-base font-semibold text-white disabled:cursor-default disabled:bg-gray-400"
-        type="submit"
-        disabled={!isValid}
-      >
+      <Button type="submit" disabled={!isValid}>
         회원가입
-      </button>
+      </Button>
     </Form>
   );
 };
