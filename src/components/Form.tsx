@@ -53,7 +53,7 @@ function FormLabel({
   ...rest
 }: React.LabelHTMLAttributes<HTMLLabelElement>) {
   return (
-    <label className="text-base font-bold" {...rest}>
+    <label className="text-base font-semibold text-gray-700" {...rest}>
       {children}
     </label>
   );
@@ -67,7 +67,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ({ id, name, isError = false, ...rest }, ref) => {
     return (
       <input
-        className={`h-12 w-full rounded-lg border px-5 text-base font-normal outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
+        className={`h-12 w-full rounded-lg border px-5 text-base font-normal text-gray-700 outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
         id={id}
         name={name}
         ref={ref}
@@ -88,7 +88,7 @@ function FormErrorMessage({
   if (!isError) return null;
 
   return (
-    <div className="flex items-start text-sm font-medium text-red-600">
+    <div className="flex items-start text-sm font-normal text-red-600">
       <InformationCircleIcon className="mr-1 h-5 w-5 shrink-0" />
       {children}
     </div>
