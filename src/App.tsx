@@ -7,13 +7,16 @@ import AuthLayout from "./layouts/AuthLayout";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Todos from "./pages/Todos";
+import NewTodo from "./pages/NewTodo";
 
 function App() {
   return (
     <Routes>
       <Route element={<RequireAuth />}>
         <Route path="/" element={<Todos />} />
-        <Route path="/todos" element={<Todos />} />
+        <Route path="/todos" element={<Todos />}>
+          <Route path="new" element={<NewTodo />} />
+        </Route>
       </Route>
 
       <Route element={<RedirectIfAuth />}>
