@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
 import { getTodos } from "../api/todo";
@@ -47,9 +47,9 @@ function Todos() {
 
           <div className="mt-3 flex w-full flex-col gap-3">
             {todos.map(({ id, title }) => (
-              <Link key={id} to={`/todos/${id}`}>
-                <Todo content={title} />
-              </Link>
+              <NavLink key={id} to={`/todos/${id}`}>
+                {({ isActive }) => <Todo content={title} isActive={isActive} />}
+              </NavLink>
             ))}
           </div>
         </section>
@@ -59,9 +59,16 @@ function Todos() {
   );
 }
 
-function Todo({ content }: { content: string }) {
+interface TodoProps {
+  content: string;
+  isActive?: boolean;
+}
+
+function Todo({ content, isActive = false }: TodoProps) {
   return (
-    <Card className="w-full bg-opacity-80 transition-colors hover:bg-opacity-100">
+    <Card
+      className={`w-full transition-colors hover:bg-opacity-100 ${isActive ? "ring-primary-600 shadow-primary-600 bg-opacity-100 ring-2" : "bg-opacity-80"}`}
+    >
       <pre className="line-clamp-2 whitespace-pre-wrap text-base font-normal text-gray-700">
         {content}
       </pre>
