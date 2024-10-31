@@ -3,10 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "./layouts/RequireAuth";
 import RedirectIfAuth from "./layouts/RedirectIfAuth";
 import AuthLayout from "./layouts/AuthLayout";
+import TodoLayout from "./layouts/TodoLayout";
 
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Todos from "./pages/Todos";
+import Todo from "./pages/Todo";
 import NewTodo from "./pages/NewTodo";
 
 function App() {
@@ -15,7 +17,10 @@ function App() {
       <Route element={<RequireAuth />}>
         <Route path="/" element={<Todos />} />
         <Route path="/todos" element={<Todos />}>
-          <Route path="new" element={<NewTodo />} />
+          <Route element={<TodoLayout />}>
+            <Route path=":todoId" element={<Todo />} />
+            <Route path="new" element={<NewTodo />} />
+          </Route>
         </Route>
       </Route>
 
