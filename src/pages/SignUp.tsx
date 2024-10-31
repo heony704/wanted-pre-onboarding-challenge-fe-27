@@ -46,6 +46,7 @@ const SignUp = () => {
         />
         <Form.ErrorMessage>{errors.email?.message}</Form.ErrorMessage>
       </Form.Item>
+
       <Form.Item id="password" isError={!!errors.password}>
         <Form.Label>비밀번호</Form.Label>
         <Form.Input
@@ -62,7 +63,8 @@ const SignUp = () => {
         />
         <Form.ErrorMessage>{errors.password?.message}</Form.ErrorMessage>
       </Form.Item>
-      <Button type="submit" disabled={!isValid}>
+
+      <Button className="mt-2" type="submit" disabled={!isValid}>
         회원가입
       </Button>
     </Form>

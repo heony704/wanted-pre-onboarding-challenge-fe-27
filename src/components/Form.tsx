@@ -8,7 +8,7 @@ function Form({
 }: React.FormHTMLAttributes<HTMLFormElement>) {
   return (
     <form
-      className={`${className} flex w-full flex-col gap-5`}
+      className={`${className} flex w-full flex-col gap-4`}
       noValidate
       {...rest}
     >
@@ -67,7 +67,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ({ id, name, isError = false, ...rest }, ref) => {
     return (
       <input
-        className={`h-12 w-full rounded-lg border px-5 text-base font-normal text-gray-700 outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
+        className={`h-11 w-full rounded-lg border px-4 text-base font-normal text-gray-700 outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
         id={id}
         name={name}
         ref={ref}
