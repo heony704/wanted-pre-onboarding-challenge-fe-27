@@ -33,4 +33,23 @@ pre {
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     sans-serif;
+
+  @apply text-gray-700;
+}
+
+pre,
+textarea,
+input {
+  &::-webkit-scrollbar {
+    @apply w-2;
+  }
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply rounded bg-neutral-400/60;
+  }
+  &::-webkit-scrollbar-button {
+    @apply h-0 w-0;
+  }
 }
