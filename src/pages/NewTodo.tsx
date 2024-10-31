@@ -23,9 +23,9 @@ function NewTodo() {
 
   const createMutation = useMutation({
     mutationFn: (newTodo: FormData) => createTodo(newTodo),
-    onSuccess: () => {
+    onSuccess: (todo) => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-      navigate("/todos");
+      navigate(`/todos/${todo.id}`);
     },
     onError: (error) => {
       console.log("Todo 추가 실패", error);
