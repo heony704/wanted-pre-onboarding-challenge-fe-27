@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { signin } from "../api/auth";
 
 import Form from "../components/Form";
-import Button from "../components/Button";
+import { Button } from "../components/Button";
 
 interface FormData {
   email: string;
