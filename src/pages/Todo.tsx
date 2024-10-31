@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { deleteTodo, getTodoById } from "../api/todo";
 
@@ -10,39 +10,40 @@ type Todo = Awaited<ReturnType<typeof getTodoById>>;
 function Todo() {
   const { todoId } = useParams<{ todoId: string }>();
   const navigate = useNavigate();
-  const [todo, setTodo] = useState<Todo>(null);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const fetchTodo = async () => {
-      if (!todoId) return;
+  const { data: todo, isLoading } = useQuery({
+    queryKey: ["todos", todoId],
+    queryFn: () => getTodoById(todoId!),
+    enabled: !!todoId,
+  });
 
-      const response = await getTodoById(todoId);
-      setTodo(response);
-    };
-
-    fetchTodo();
-  }, [todoId]);
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteTodo(todoId!),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      navigate("/todos");
+    },
+    onError: (error) => {
+      console.log("Todo 삭제 실패", error);
+    },
+  });
 
   const handleDelete = async () => {
-    if (!todoId) return;
-
-    try {
-      await deleteTodo(todoId);
-      navigate("/todos");
-    } catch (error) {
-      console.log("Todo 삭제 실패", error);
+    if (todoId) {
+      deleteMutation.mutate();
     }
   };
 
-  if (!todo) return <>...</>;
+  if (isLoading) return <>...</>;
 
   return (
     <>
       <h2 className="line-clamp-1 shrink-0 text-2xl font-bold leading-10 text-gray-700">
-        {todo.title}
+        {todo?.title}
       </h2>
       <pre className="mt-2 grow overflow-auto whitespace-pre-wrap break-words text-gray-700">
-        {todo.content}
+        {todo?.content}
       </pre>
 
       <div className="mt-4 flex justify-end gap-3">

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 import { getTodoById, updateTodo } from "../api/todo";
@@ -23,29 +24,37 @@ function EditTodo() {
     mode: "onTouched",
   });
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { data: todo } = useQuery({
+    queryKey: ["todos", todoId],
+    queryFn: () => getTodoById(todoId!),
+    enabled: !!todoId,
+  });
 
   useEffect(() => {
-    const fetchTodo = async () => {
-      if (!todoId) return;
-
-      const response = await getTodoById(todoId);
+    if (todo) {
       reset({
-        title: response?.title || "",
-        content: response?.content || "",
+        title: todo.title || "",
+        content: todo.content || "",
       });
-    };
+    }
+  }, [todo, reset]);
 
-    fetchTodo();
-  }, [todoId, reset]);
-
-  const onSubmit = async (data: FormData) => {
-    if (!todoId) return;
-
-    try {
-      await updateTodo(todoId, data);
+  const updateMutation = useMutation({
+    mutationFn: (updatedData: FormData) => updateTodo(todoId!, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       navigate(`/todos/${todoId}`);
-    } catch (error) {
+    },
+    onError: (error) => {
       console.log("Todo 수정 실패", error);
+    },
+  });
+
+  const onSubmit = (data: FormData) => {
+    if (todoId) {
+      updateMutation.mutate(data);
     }
   };
 

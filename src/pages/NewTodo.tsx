@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 import { createTodo } from "../api/todo";
@@ -18,14 +19,21 @@ function NewTodo() {
     formState: { errors, isValid },
   } = useForm<FormData>({ mode: "onTouched" });
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      await createTodo(data);
+  const createMutation = useMutation({
+    mutationFn: (newTodo: FormData) => createTodo(newTodo),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       navigate("/todos");
-    } catch (error) {
+    },
+    onError: (error) => {
       console.log("Todo 추가 실패", error);
-    }
+    },
+  });
+
+  const onSubmit = (data: FormData) => {
+    createMutation.mutate(data);
   };
 
   return (

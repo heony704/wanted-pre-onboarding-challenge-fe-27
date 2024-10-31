@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
 import { getTodos } from "../api/todo";
@@ -9,16 +9,10 @@ import Card from "../components/Card";
 type Todo = Awaited<ReturnType<typeof getTodos>>[number];
 
 function Todos() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
-    const fetchTodos = async () => {
-      const response = await getTodos();
-      setTodos(response);
-    };
-
-    fetchTodos();
-  }, []);
+  const { data: todos = [] } = useQuery({
+    queryKey: ["todos"],
+    queryFn: getTodos,
+  });
 
   return (
     <div className="via-primary-200 flex min-h-screen w-full flex-col items-center bg-gradient-to-tr from-blue-200 to-pink-200 text-gray-700">
