@@ -38,10 +38,10 @@ function Todo() {
 
   return (
     <>
-      <h2 className="line-clamp-1 shrink-0 text-2xl font-bold leading-10">
+      <h2 className="line-clamp-1 shrink-0 text-2xl font-bold leading-10 text-gray-700">
         {todo.title}
       </h2>
-      <pre className="mt-2 grow overflow-auto whitespace-pre-wrap break-words">
+      <pre className="mt-2 grow overflow-auto whitespace-pre-wrap break-words text-gray-700">
         {todo.content}
       </pre>
 
