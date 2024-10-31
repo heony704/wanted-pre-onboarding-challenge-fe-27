@@ -9,6 +9,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Todos from "./pages/Todos";
 import Todo from "./pages/Todo";
+import EditTodo from "./pages/EditTodo";
 import NewTodo from "./pages/NewTodo";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/todos" element={<Todos />}>
           <Route element={<TodoLayout />}>
             <Route path=":todoId" element={<Todo />} />
+            <Route path=":todoId/edit" element={<EditTodo />} />
             <Route path="new" element={<NewTodo />} />
           </Route>
         </Route>
