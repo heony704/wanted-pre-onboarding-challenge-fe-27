@@ -45,8 +45,8 @@ export const createTodo = async (data: TodoRequest) => {
   return response.data.data;
 };
 
-export const updateTodo = async (data: TodoRequest) => {
-  const response = await instance.put<TodoResponse>("/todos", data, {
+export const updateTodo = async (id: string, data: TodoRequest) => {
+  const response = await instance.put<TodoResponse>(`/todos/${id}`, data, {
     withAuth: true,
   });
 
