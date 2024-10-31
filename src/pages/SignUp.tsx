@@ -11,7 +11,7 @@ interface FormData {
   password: string;
 }
 
-const SignUp = () => {
+function SignUp() {
   const {
     register,
     handleSubmit,
@@ -69,6 +69,6 @@ const SignUp = () => {
       </Button>
     </Form>
   );
-};
+}
 
 export default SignUp;
