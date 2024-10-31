@@ -19,6 +19,10 @@
 </div>
 <br>
 
+<div align=center>
+  <a target="_blank" href="https://modoos-todo.netlify.app/">배포 링크</a>
+</div>
+
 ## 구현한 것들
 
 ### Login / SignUp
@@ -63,7 +67,7 @@
 
 ## 직접 실행하기
 
-프론트엔드 웹은 직접 실행하지 않고 배포 링크를 통해 이용하실 수 있습니다.  
+프론트엔드 웹은 직접 실행하지 않고 [배포 링크](https://modoos-todo.netlify.app/)를 통해 이용하실 수 있습니다.  
 하지만 백엔드 서버는 로컬에서 꼭 실행해주셔야 합니다.
 
 ### 프론트엔드 웹
