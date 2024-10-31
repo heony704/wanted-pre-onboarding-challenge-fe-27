@@ -14,7 +14,11 @@ interface Todo {
 }
 
 interface TodoResponse {
-  data: Todo | null;
+  data: Todo;
+}
+
+interface EmptyResponse {
+  data: null;
 }
 
 interface TodosResponse {
@@ -54,7 +58,7 @@ export const updateTodo = async (id: string, data: TodoRequest) => {
 };
 
 export const deleteTodo = async (id: string) => {
-  const response = await instance.delete<TodoResponse>(`/todos/${id}`, {
+  const response = await instance.delete<EmptyResponse>(`/todos/${id}`, {
     withAuth: true,
   });
 
