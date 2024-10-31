@@ -38,18 +38,16 @@ export const getTodoById = async (id: string) => {
 };
 
 export const createTodo = async (data: TodoRequest) => {
-  const response = await instance.post<TodoResponse>("/todos", {
+  const response = await instance.post<TodoResponse>("/todos", data, {
     withAuth: true,
-    ...data,
   });
 
   return response.data.data;
 };
 
 export const updateTodo = async (data: TodoRequest) => {
-  const response = await instance.put<TodoResponse>("/todos", {
+  const response = await instance.put<TodoResponse>("/todos", data, {
     withAuth: true,
-    ...data,
   });
 
   return response.data.data;
