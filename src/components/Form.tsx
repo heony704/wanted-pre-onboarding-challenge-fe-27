@@ -18,11 +18,17 @@ function Form({
 }
 
 interface FormItemProps extends React.PropsWithChildren {
+  className?: string;
   id: string;
   isError?: boolean;
 }
 
-function FormItem({ id, isError = false, children }: FormItemProps) {
+function FormItem({
+  className = "",
+  id,
+  isError = false,
+  children,
+}: FormItemProps) {
   const childrenWithId = Children.map(children, (child) => {
     if (isValidElement(child)) {
       if (child.type === "label" || child.type === FormLabel) {
@@ -31,7 +37,7 @@ function FormItem({ id, isError = false, children }: FormItemProps) {
       if (child.type === "input") {
         return cloneElement(child as React.ReactElement, { name: id, id });
       }
-      if (child.type === FormInput) {
+      if (child.type === FormInput || child.type === FormTextarea) {
         return cloneElement(child as React.ReactElement, {
           name: id,
           id,
@@ -45,7 +51,9 @@ function FormItem({ id, isError = false, children }: FormItemProps) {
     return child;
   });
 
-  return <div className="flex flex-col gap-2">{childrenWithId}</div>;
+  return (
+    <div className={`${className} flex flex-col gap-2`}>{childrenWithId}</div>
+  );
 }
 
 function FormLabel({
@@ -64,12 +72,28 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  ({ id, name, isError = false, ...rest }, ref) => {
+  ({ className = "", isError = false, ...rest }, ref) => {
     return (
       <input
-        className={`h-11 w-full rounded-lg border px-4 text-base font-normal text-gray-700 outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
-        id={id}
-        name={name}
+        className={`${className} h-11 w-full rounded-lg border px-4 text-base font-normal text-gray-700 outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
+        ref={ref}
+        {...rest}
+      />
+    );
+  },
+);
+
+interface FormTextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  isError?: boolean;
+}
+
+const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
+  ({ className = "", isError = false, ...rest }, ref) => {
+    return (
+      <textarea
+        className={`${className} w-full resize-none rounded-lg border px-4 py-[10px] text-base font-normal text-gray-700 outline-none placeholder:text-gray-400 focus:ring-1 ${isError ? "border-red-600 bg-red-50 focus:border-red-600 focus:ring-red-600" : "focus:border-primary-500 focus:ring-primary-500 border-gray-300 bg-gray-50"}`}
+        spellCheck="false"
         ref={ref}
         {...rest}
       />
@@ -98,6 +122,7 @@ function FormErrorMessage({
 Form.Item = FormItem;
 Form.Label = FormLabel;
 Form.Input = FormInput;
+Form.Textarea = FormTextarea;
 Form.ErrorMessage = FormErrorMessage;
 
 export default Form;
