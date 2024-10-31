@@ -2,19 +2,18 @@ import { Route, Routes } from "react-router-dom";
 
 import RequireAuth from "./layouts/RequireAuth";
 import RedirectIfAuth from "./layouts/RedirectIfAuth";
+import AuthLayout from "./layouts/AuthLayout";
 
-import Todos from "./pages/Todos";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import AuthLayout from "./layouts/AuthLayout";
+import Todos from "./pages/Todos";
 
 function App() {
   return (
     <Routes>
       <Route element={<RequireAuth />}>
-        <Route path="/">
-          <Route index element={<Todos />} />
-        </Route>
+        <Route path="/" element={<Todos />} />
+        <Route path="/todos" element={<Todos />} />
       </Route>
 
       <Route element={<RedirectIfAuth />}>
