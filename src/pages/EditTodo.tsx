@@ -43,7 +43,7 @@ function EditTodo() {
 
     try {
       await updateTodo(todoId, data);
-      navigate("/todos");
+      navigate(`/todos/${todoId}`);
     } catch (error) {
       console.log("Todo 수정 실패", error);
     }
