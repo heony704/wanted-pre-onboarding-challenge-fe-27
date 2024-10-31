@@ -30,7 +30,7 @@ function Todos() {
 
       <main className="flex w-full justify-center gap-8 px-10 pb-10">
         <section className="flex w-full max-w-[500px] flex-col items-center">
-          <LinkButton to="/todos/new" className="h-10 w-[100px]">
+          <LinkButton to="/todos/new" className="w-[100px]">
             Create
           </LinkButton>
 
