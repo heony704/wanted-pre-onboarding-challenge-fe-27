@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import RequireAuth from "./layouts/RequireAuth";
 import RedirectIfAuth from "./layouts/RedirectIfAuth";
@@ -37,6 +38,9 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      {process.env.NODE_ENV === "development" && (
+        <ReactQueryDevtools initialIsOpen={false} />
+      )}
     </QueryClientProvider>
   );
 }
