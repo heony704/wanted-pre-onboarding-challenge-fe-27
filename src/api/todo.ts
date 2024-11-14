@@ -3,6 +3,7 @@ import instance from "./instance";
 interface TodoRequest {
   title: string;
   content: string;
+  priority?: "urgent" | "normal" | "low";
 }
 
 interface Todo {
@@ -11,6 +12,7 @@ interface Todo {
   id: string;
   createdAt: string;
   updatedAt: string;
+  priority?: "urgent" | "normal" | "low";
 }
 
 interface TodoResponse {
@@ -25,8 +27,17 @@ interface TodosResponse {
   data: Todo[];
 }
 
-export const getTodos = async () => {
+interface GetTodosParams {
+  sort?: "createdAt" | "updatedAt" | "priority";
+  order?: "asc" | "desc";
+  priority?: "urgent" | "normal" | "low";
+  keyword?: string;
+  countOnly?: boolean;
+}
+
+export const getTodos = async (params?: GetTodosParams) => {
   const response = await instance.get<TodosResponse>("/todos", {
+    params,
     withAuth: true,
   });
 
