@@ -11,7 +11,7 @@ interface Props {
   title: string;
 }
 
-function Alert({ isOpen, onClose, title }: Props) {
+function Modal({ isOpen, onClose, title }: Props) {
   useEffect(() => {
     const handleKeydownEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -57,4 +57,4 @@ function Alert({ isOpen, onClose, title }: Props) {
   );
 }
 
-export default Alert;
+export default Modal;
